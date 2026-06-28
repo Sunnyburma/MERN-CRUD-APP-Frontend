@@ -1,8 +1,20 @@
 import axios from 'axios';
 
-// http://localhost:5000/api
+const getApiBaseUrl = () => {
+  const configuredBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+
+  if (!configuredBaseUrl) {
+    return 'https://mern-crud-app-h49t.onrender.com/api';
+  }
+
+  const normalizedBaseUrl = configuredBaseUrl.replace(/\/+$/, '');
+  return normalizedBaseUrl.endsWith('/api')
+    ? normalizedBaseUrl
+    : `${normalizedBaseUrl}/api`;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://mern-crud-app-h49t.onrender.com/api', 
+  baseURL: getApiBaseUrl(),
   headers: {
     'Content-Type': 'application/json'
   }
