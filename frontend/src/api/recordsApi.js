@@ -8,13 +8,6 @@ const api = axios.create({
   }
 });
 
-
-export const checkApiHealth = async () => {
-  const { data } = await api.get('/health');
-  return data;
-};
-
-
 export const getRecords = async (params) => {
   const { data } = await api.get('/records', { params });
   return data;
